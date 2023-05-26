@@ -4,6 +4,7 @@ class Scenario:
         self.I0 = I0
         self.R0 = R0
 
+
 # Początek epidemii w całkowicie podatnej populacji
 start_in_susceptible_pop = Scenario(S0=1.0, I0=0.0, R0=0.0)
 
