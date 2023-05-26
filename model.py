@@ -1,11 +1,12 @@
 import numpy as np
 from scipy.integrate import odeint
 import matplotlib.pyplot as plt
-from disease import covid19
+from disease import covid19 as disease
+from scenario import epidemic_in_infected_pop as scenario
 
 # Parametry modelu
-beta = covid19.beta
-gamma = covid19.gamma
+beta = disease.beta
+gamma = disease.gamma
 
 
 # Definicja modelu SIR
@@ -18,9 +19,9 @@ def sir_model(y, t, beta, gamma):
 
 
 # Początkowe warunki
-S0 = 0.9
-I0 = 0.1
-R0 = 0.0
+S0 = scenario.S0
+I0 = scenario.I0
+R0 = scenario.R0
 y0 = [S0, I0, R0]
 
 # Czas
