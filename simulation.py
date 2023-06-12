@@ -2,10 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image
 import io
+from disease import covid19 as disease
+from scenario import epidemic_in_infected_pop as scenario
 
 # Initialize the grid
 N = 100
-grid = np.random.choice([0, 1, 2], N * N, p=[0.9, 0.1, 0]).reshape(N, N)
+grid = np.random.choice([0, 1, 2], N * N, p=[scenario.S0, scenario.I0, scenario.R0]).reshape(N, N)
 
 
 def count_infected_neighbors(i, j):
@@ -21,8 +23,8 @@ def count_infected_neighbors(i, j):
     return infected_neighbors
 
 
-beta = 0.2  # infection probability
-gamma = 0.1  # recovery probability
+beta = disease.beta  # infection probability
+gamma = disease.gamma  # recovery probability
 time = 100
 
 frames = []  # for storing frames
