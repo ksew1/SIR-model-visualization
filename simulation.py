@@ -28,6 +28,7 @@ gamma = disease.gamma  # recovery probability
 time = 100
 
 frames = []  # for storing frames
+infected_counts = []
 
 for _ in range(time):  # time steps
     new_grid = grid.copy()
@@ -41,6 +42,8 @@ for _ in range(time):  # time steps
                 if np.random.rand() < gamma:
                     new_grid[i, j] = 2  # becomes Recovered
     grid = new_grid
+    infected_count = np.count_nonzero(grid == 1)
+    infected_counts.append(infected_count)
 
     # Visualization
     buf = io.BytesIO()
@@ -51,6 +54,19 @@ for _ in range(time):  # time steps
     buf.seek(0)
     frames.append(Image.open(buf))
     plt.close()
+
+#plot
+time_axis = np.arange(time)
+
+# Plot the infected counts
+plt.figure()
+plt.plot(time_axis, infected_counts)
+plt.xlabel('Time')
+plt.ylabel('Number of Infected Individuals')
+plt.title('Change in the Number of Infected Individuals over Time')
+plt.grid(True)
+plt.savefig('infected_counts.png')
+plt.close()
 
 # Save as a GIF
 frames[0].save('simulation.gif', format='GIF', append_images=frames[1:], save_all=True, duration=200, loop=0)
